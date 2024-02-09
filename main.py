@@ -22,7 +22,9 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.continueGame = False
-            pygame.display.flip()
+
+            self.ball.draw(window)
+            pygame.display.update()
 
         pygame.quit()
 
