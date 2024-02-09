@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-
+from movable.ball import  Ball
 pygame.init()
 
 width = 600
@@ -13,6 +13,8 @@ pygame.display.set_caption("Arkanoid")
 class Game:
     def __init__(self):
         self.continueGame = True
+        self.ball = Ball(10, 10)# must be replaced with paddle dimensions
+
 
     def run(self):
         while self.continueGame:
