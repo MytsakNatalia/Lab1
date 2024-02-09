@@ -4,15 +4,7 @@ from pygame.locals import Rect
 
 class Paddle:
     def __init__(self, screen_width, screen_height):# screen width and height
-        self.height = 20
-        self.width = int(screen_width/6)# has to be changed based on number of colors
-        self.x = int((screen_width/2) - (self.width/2))
-        self.y = screen_height - (self.height*2)
-        self.speed = 5
-        self.rectangle = Rect(self.x, self.y, self.width, self.height)
-        self.direction = 0
-        self.fill_color = (142, 135, 123)
-        self.outline_color = (100, 100, 100)
+        self.reset(screen_width, screen_height)
 
 
     def move(self, screen_width):
@@ -32,10 +24,12 @@ class Paddle:
     def reset(self, screen_width, screen_height):
         # reset paddle variables
         self.height = 20
-        self.width = int(screen_width / 6)
+        self.width = int(screen_width / 6)  # has to be changed based on number of colors
         self.x = int((screen_width / 2) - (self.width / 2))
         self.y = screen_height - (self.height * 2)
-        self.speed = 10
-        self.rect = Rect(self.x, self.y, self.width, self.height)
+        self.speed = 5
+        self.rectangle = Rect(self.x, self.y, self.width, self.height)
         self.direction = 0
+        self.fill_color = (142, 135, 123)
+        self.outline_color = (100, 100, 100)
 
