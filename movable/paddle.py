@@ -29,3 +29,13 @@ class Paddle:
         pygame.draw.rect(screen, self.fill_color, self.rectangle)
         pygame.draw.rect(screen, self.outline_color, self.rectangle, 3)
 
+    def reset(self, screen_width, screen_height):
+        # reset paddle variables
+        self.height = 20
+        self.width = int(screen_width / 6)
+        self.x = int((screen_width / 2) - (self.width / 2))
+        self.y = screen_height - (self.height * 2)
+        self.speed = 10
+        self.rect = Rect(self.x, self.y, self.width, self.height)
+        self.direction = 0
+
