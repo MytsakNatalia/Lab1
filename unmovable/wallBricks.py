@@ -35,4 +35,19 @@ class Wall:
                 # store individual block
                 block_row.append([rect, strength])
             self.blocks.append(block_row)  # append the block row to the wall
+            
+    def draw_wall(self, screen):
+        for row in self.blocks:
+            for block in row:
+                # assign colour based on block strength
+                if block[1] == 3:
+                    block_col = self.block_blue
+                elif block[1] == 2:
+                    block_col = self.block_green
+                elif block[1] == 1:
+                    block_col = self.block_red
+                pygame.draw.rect(screen, block_col, block[0])
+        for row in self.blocks:
+            for block in row:
+                pygame.draw.rect(screen, self.bg, block[0], 4)
    
