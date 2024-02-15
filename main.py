@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from movable.ball import  Ball
 from movable.paddle import  Paddle
 from unmovable.wallBricks import Wall
 
@@ -21,6 +22,8 @@ fps = 60
 class Game:
     def __init__(self):
         self.continueGame = True
+        
+        self.ball = Ball(10, 10)# must be replaced with paddle dimensions
         self.wall = Wall(width, height, bg_color, cols, rows )       
         self.wall.create_wall()
         self.wall.draw_wall(window)
@@ -38,6 +41,8 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.continueGame = False
 
+
+            self.ball.draw(window)            
             window.fill(bg_color)
             self.wall.draw_wall(window)
             self.paddle.move(width)
