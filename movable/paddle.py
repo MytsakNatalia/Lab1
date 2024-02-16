@@ -16,6 +16,7 @@ class Paddle:
         if key[pygame.K_RIGHT] and self.rectangle.right<screen_width:
             self.rectangle.x +=self.speed
             self.direction  =1
+        return self.rectangle
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.fill_color, self.rectangle)
@@ -26,7 +27,7 @@ class Paddle:
         self.height = 20
         self.width = int(screen_width / 6)  # has to be changed based on number of colors
         self.x = int((screen_width / 2) - (self.width / 2))
-        self.y = screen_height - (self.height * 2)
+        self.y = int(screen_height - (self.height * 2))
         self.speed = 5
         self.rectangle = Rect(self.x, self.y, self.width, self.height)
         self.direction = 0
