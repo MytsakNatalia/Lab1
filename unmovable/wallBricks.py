@@ -17,6 +17,8 @@ class Wall:
         self.block_red = (242, 85, 96)
         self.block_green = (86, 174, 87)
         self.block_blue = (69, 177, 232)
+        self.block_orange = (234, 159, 10)
+        self.block_violet = (211, 13, 229)
         self.blocks = []  # an empty list for all blocks
 
     def generate_block_strength(self, row):
@@ -59,8 +61,13 @@ class Wall:
     def draw_wall(self, screen):
         for row in self.blocks:
             for block in row:
+                block_col = 0
                 # assign colour based on block strength
-                if block[1] == 3:
+                if block[1] == 5:
+                    block_col = self.block_violet
+                elif block[1] == 4:
+                    block_col = self.block_orange
+                elif block[1] == 3:
                     block_col = self.block_blue
                 elif block[1] == 2:
                     block_col = self.block_green
