@@ -6,7 +6,7 @@ from unmovable.wallBricks import Wall
 
 pygame.init()
 
-width = 600
+width = 750
 height = 750
 bg_color = (234, 218, 184)
 
@@ -36,8 +36,10 @@ def draw_button(text, x, y, action):
         if click[0] == 1:
             action()
   
+def button_clicked(mouse_x, mouse_y, button_x, button_y, button_width, button_height):
+    return button_x < mouse_x < button_x + button_width and button_y < mouse_y < button_y + button_height
+  
 def pause_window():
-    ##freeze ball
     pause_window_width = 300
     pause_window_height = 230  
     pause_window_x = (width - pause_window_width) // 2
@@ -65,12 +67,11 @@ def pause_window():
                return "quit"
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                # Check if any button in the pause window is clicked
-                if button_x < mouse_pos[0] < button_x + button_width and button_y < mouse_pos[1] < button_y + button_height:
+                if button_clicked(mouse_pos[0], mouse_pos[1], button_x, button_y, button_width, button_height):
                     return "continue"
-                elif button_x < mouse_pos[0] < button_x + button_width and button_y + button_height + button_gap < mouse_pos[1] < button_y + 2 * (button_height + button_gap):
+                elif button_clicked(mouse_pos[0], mouse_pos[1], button_x, button_y + button_height + button_gap, button_width, button_height):
                     return "play_again" 
-                elif button_x < mouse_pos[0] < button_x + button_width and button_y + 2 * (button_height + button_gap) < mouse_pos[1] < button_y + 3 * (button_height + button_gap):
+                elif button_clicked(mouse_pos[0], mouse_pos[1], button_x, button_y + 2 * (button_height + button_gap), button_width, button_height):
                     return "quit" 
 
         pygame.display.update()
@@ -136,18 +137,19 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         paused = False  # Resume the game if the user presses Escape
-
-            # Display the pause window
+            
             res = pause_window()
-            if res == "continue":  # If user chooses to continue, resume the game
+            if res == "continue":  
                 paused = False
-                self.continueGame = True  # Resume the game loop
-            elif res == "play_again":  # If user chooses to play again, restart the game
-                paused = False
-                self.__init__()  # Restart the game instance
-                self.run()  # Restart the game loop
-            elif res == "quit":  # If user chooses to quit, exit the game
-                pygame.quit()  # Quit pygame
+                self.continueGame = True  
+            elif res == "play_again":              
+               paused = False
+               self.continueGame = True
+               difficulty = self.difficulty               
+               game = Game(difficulty)
+               game.run()                          
+            elif res == "quit":  
+                pygame.quit() 
 
 
     def run(self):
@@ -206,6 +208,23 @@ class Game:
 
         pygame.quit()
 
+def main():
+    show_difficulty_levels()
+    while True:  
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if 210 < mouse_pos[0] < 390 and 300 < mouse_pos[1] < 350:
+                        start_game_easy()
+                elif 210 < mouse_pos[0] < 390 and 370 < mouse_pos[1] < 420:
+                        start_game_medium()
+                elif 210 < mouse_pos[0] < 390 and 440 < mouse_pos[1] < 490:
+                        start_game_hard()
+                    
+        pygame.display.update()
+        
 if __name__ == '__main__':
-    while True:
-        show_difficulty_levels()
+    main()
