@@ -9,6 +9,14 @@ pygame.init()
 
 class Game:
     def __init__(self, screen, height, width, difficulty):
+        """Constructor for creating an object of the Game class
+
+        Parameters:
+            screen (object): The object of Window class
+            height (float): The height of the screen
+            width (float): The width of the screen
+            difficulty (string): The level og difficulty of the game
+        """
         self.window = screen
         self.height = height
         self.width = width
@@ -30,11 +38,27 @@ class Game:
 
         self.paddle.draw(self.window)  
         
-    def draw_text(self, text, font, text_col, x, y):        
+    def draw_text(self, text, font, text_col, x, y): 
+        """Add (draw) text on window 
+        
+        Parameters:
+            text (str): The text to draw
+            font (pygame.Font): An object representing the font features
+            text_col (tuple): The color of the text in RGB format
+            x (float): The x-coordinate of the text
+            y (float): The y-coordinate of the text        
+        """       
         img = font.render(text, True, text_col)
         self.window.blit(img, (x, y))
         
     def pause_window(self):
+        """Display window when Pause is clicked on main window 
+            Allows user to chooose 3 options: Continue, Play Again, Quit
+            Draws buttons and text for this 
+
+        Returns:
+            string: choosed option 
+        """
         pause_window_width = 300
         pause_window_height = 230  
         pause_window_x = (self.width - pause_window_width) // 2
@@ -82,6 +106,8 @@ class Game:
         pygame.quit()
 
     def pause_game(self):
+        """Handle operatins that was choosed after clicking Pause button
+        """
         self.continueGame = False  # Pause the game loop
         paused = True  
         
@@ -108,6 +134,12 @@ class Game:
 
 
     def run(self):
+        """Run the Game
+            User play here 
+            Draw all components of Game 
+            Wall with Bricks, Paddle, Ball, Pause Button 
+            Hadle Pause clicking and victory or fault 
+        """ 
         paused = False
 
 
@@ -165,6 +197,10 @@ class Game:
     
 
 def main():
+    """The starting window for Game
+        Show difficulty levels
+        Handle choosed levels
+    """
     from unmovable.controllers.difficulty import Difficulty
     width = 750
     height = 750
