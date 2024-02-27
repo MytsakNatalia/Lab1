@@ -8,6 +8,16 @@ class Paddle:
 
 
     def move(self, screen_width):
+        """
+                Move the paddle based on user input.
+
+                Parameters:
+                - screen_width (int): Width of the game screen.
+
+                Returns:
+                Rect: Updated rectangle representing the paddle.
+                """
+
         self.direction = 0
         key = pygame.key.get_pressed()
         if key[pygame.K_LEFT] and self.rectangle.left>0:
@@ -19,10 +29,23 @@ class Paddle:
         return self.rectangle
 
     def draw(self, screen):
+        """
+                Draw the paddle on the specified screen.
+
+                Parameters:
+                - screen: Pygame window to draw on.
+                """
         pygame.draw.rect(screen, self.fill_color, self.rectangle)
         pygame.draw.rect(screen, self.outline_color, self.rectangle, 3)
 
     def reset(self, screen_width, screen_height):
+        """
+                Initialize the paddle with specified screen width and height.
+
+                Parameters:
+                - screen_width (int): Width of the game screen.
+                - screen_height (int): Height of the game screen.
+                """
         # reset paddle variables
         self.height = 20
         self.width = int(screen_width / 6)  # has to be changed based on number of colors

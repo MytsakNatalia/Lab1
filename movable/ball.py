@@ -9,6 +9,12 @@ class Ball:
         self.outline_color = (100, 100, 100)
 
     def reset(self, x, y):
+        '''
+        Reset the ball to its initial state with specified coordinates.
+        :param x: X-coordinate for the ball.
+        :param y:Y-coordinate for the ball
+
+        '''
         self.ball_rad = 10
         self.x = x - self.ball_rad
         self.y = y
@@ -19,12 +25,26 @@ class Ball:
         self.game_over = 0
 
     def draw(self, window):
+        '''
+        Draw the ball on the specified window
+        :param window: main game window
+
+        '''
         pygame.draw.circle(window, self.fill_color, (self.rect.x + self.ball_rad, self.rect.y + self.ball_rad),
                            self.ball_rad)
         pygame.draw.circle(window, self.fill_color, (self.rect.x + self.ball_rad, self.rect.y + self.ball_rad),
                            self.ball_rad, 3)
 
     def move(self, wall, paddle, screen_height, screen_width):
+        '''
+        Move the ball, handle collisions with walls, paddle, and update game state
+        :param wall:Wall object representing the blocks in the game.
+        :param paddle: Paddle object representing the player's paddle.
+        :param screen_height:Height of the game screen.
+        :param screen_width:Width of the game screen.
+        :return:Game state (-1 for game over, 0 for ongoing, 1 for victory).
+
+        '''
 
         # collision threshold
         collision_thresh = 5

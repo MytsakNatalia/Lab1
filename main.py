@@ -192,10 +192,10 @@ class Game:
                         draw_text('CLICK ANYWHERE TO START', font, text_col, 100, height // 2 + 100)
                     elif game_over == 1:
                         draw_text('YOU WON!', font, text_col, 240, height // 2 + 50)
-                        draw_text('CLICK ANYWHERE TO START', font, text_col, 100, height // 2 + 100)
+                       # draw_text('CLICK ANYWHERE TO START', font, text_col, 100, height // 2 + 100)
                     elif game_over == -1:
                         draw_text('YOU LOST!', font, text_col, 240, height // 2 + 50)
-                        draw_text('CLICK ANYWHERE TO START', font, text_col, 100, height // 2 + 100)
+                      #  draw_text('CLICK ANYWHERE TO START', font, text_col, 100, height // 2 + 100)
 
             else:
                 self.pause_game()
