@@ -3,6 +3,16 @@ from pygame.locals import Rect
 
 class Wall:
     def __init__(self, difficulty, screen_width, screen_height, bg, cols, rows):
+        """Constructor for creating an object of the Wall class
+
+        Parameters:
+            difficulty (string): The diffiuculty level of the game 
+            screen_width (float): The width of screen
+            screen_height (float): The height of screen
+            bg (tuple): color of background in RGB format
+            cols (int): amount of cloumns (for bricks)
+            rows (int): amount of rows (for bricks)
+        """
         self.difficulty = difficulty
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -22,6 +32,14 @@ class Wall:
         self.blocks = []  # an empty list for all blocks
 
     def generate_block_strength(self, row):
+        """Generate strenght of all bricks on the wall depending of the level of the game 
+
+        Parameters:
+            row (float): amount of rows 
+
+        Returns:
+            int: The strength of certain brick
+        """
         if self.difficulty == 'easy':
             if row < 2:
                 return 3
@@ -45,6 +63,8 @@ class Wall:
                 return 3
 
     def create_wall(self):
+        """Create list bricks for the wall 
+        """
         for row in range(self.rows):
             block_row = []  # the block row list
             for col in range(self.cols):
@@ -59,6 +79,11 @@ class Wall:
             self.blocks.append(block_row)  # append the block row to the wall
             
     def draw_wall(self, screen):
+        """Draw bricks on the window 
+
+        Parameters:
+            screen (object): An object of the Window class
+        """
         for row in self.blocks:
             for block in row:
                 block_col = 0
