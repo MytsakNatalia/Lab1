@@ -9,6 +9,7 @@ def ball():
 
 def test_reset(ball):
     ball.reset(200, 200)
+    assert  ball.ball_rad == 10
     assert ball.x == 190
     assert ball.y == 200
     assert ball.rect.width == 20
@@ -57,3 +58,5 @@ def test_move_paddle_collision(ball):
     ball.speed_y = 4
     game_state = ball.move(None, paddle, 600, 800)
     assert game_state == 0  # Game state should still be ongoing
+    
+
