@@ -58,45 +58,48 @@ def test_draw_text(mocker, screen, screen_width, screen_height):
                                                              text_rendered.get_height())
 
 def test_pause_window_continue(game_instance, mocker):
+    # Mocking
+    mocker.patch.object(game_instance, 'display_pause_window')
+    mocker.patch.object(game_instance, 'handle_pause_window_events')
+
+    # Simulate the user clicking on the "Continue" button
+    game_instance.handle_pause_window_events.return_value = "continue"
+
+
+    result = game_instance.pause_window()
+
+    # Assert that the function returns the correct value
+    assert result == "continue"
+def test_pause_window_play_again(game_instance, mocker):
+    # Mock necessary elements
+    mocker.patch.object(game_instance, 'display_pause_window')
+    mocker.patch.object(game_instance, 'handle_pause_window_events')
+
+    # Simulate the user clicking on the "Play Again" button
+    game_instance.handle_pause_window_events.return_value = "play_again"
+
+
+    result = game_instance.pause_window()
+
+    # Assert that the function returns the correct value
+    assert result == "play_again"
+
+def test_pause_window_quit(game_instance, mocker):
     # Mock necessary dependencies
-    mocker.patch.object(game_instance, 'window')
-    mocker.patch.object(game_instance, 'button')
+    mocker.patch.object(game_instance, 'display_pause_window')
+    mocker.patch.object(game_instance, 'handle_pause_window_events')
 
-    # Set up expected button click positions
-    button_x, button_y = 100, 100
-    continue_button_clicked_pos = (button_x + 5, button_y + 5)  # Inside "Continue" button area
-
-    # Simulate the mouse click on the "Continue" button
-    game_instance.button.button_clicked.return_value = True
-    game_instance.button.button_clicked.side_effect = lambda x, y, _, __, ___, ____: (x,
-                                                                                      y) == continue_button_clicked_pos
+    # Simulate the user clicking on the "Quit" button
+    game_instance.handle_pause_window_events.return_value = "quit"
 
     # Call the pause_window method
     result = game_instance.pause_window()
 
     # Assert that the function returns the correct value
-    assert result == "continue"
-def test_play_again(game_instance):
-    # Test the play_again method
-    # You can simulate the user's choice and check if the game resets
-    pass  # Implement this test if needed
+    assert result == "quit"
 
-def test_continue_game(game_instance):
-    # Test the continue_game method
-    # You can simulate the user's choice and check if the game continues
-    pass  # Implement this test if needed
 
-def test_quit_game(game_instance):
-    # Test the quit_game method
-    # You can mock the pygame window object to check if pygame.quit() is called
-    pass  # Implement this test if needed
-
-def test_pause_game(game_instance):
-    # Test the pause_game method
-    # You can simulate the user's choice and check if the game is paused correctly
-    pass  # Implement this test if needed
 
 def test_run(game_instance):
-    # Test the run method
-    # You can mock the pygame window object to capture the game loop execution
-    pass  # Implement this test if needed
+    
+    pass

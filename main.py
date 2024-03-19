@@ -51,7 +51,7 @@ class Game:
         img = font.render(text, True, text_col)
         self.window.blit(img, (x, y))
         
-    def pause_window(self):
+    '''def pause_window(self):
         """Display window when Pause is clicked on main window 
             Allows user to chooose 3 options: Continue, Play Again, Quit
             Draws buttons and text for this 
@@ -94,7 +94,69 @@ class Game:
                         return "quit" 
 
             pygame.display.update()
-            self.clock.tick(self.fps)   
+            self.clock.tick(self.fps)   '''
+
+    def display_pause_window(self):
+        """Display the pause window on the Pygame window."""
+        pause_window_width = 300
+        pause_window_height = 230
+        pause_window_x = (self.width - pause_window_width) // 2
+        pause_window_y = (self.height - pause_window_height) // 3 - 10
+        pause_window_bg_color = (200, 200, 200)
+        pause_window_font = pygame.font.SysFont('Arial', 24)
+
+        pause_window_surface = pygame.Surface((pause_window_width, pause_window_height))
+        pause_window_surface.fill(pause_window_bg_color)
+
+        self.window.blit(pause_window_surface, (pause_window_x, pause_window_y))
+        self.draw_text("PAUSED", pause_window_font, (0, 0, 0), pause_window_x + 80, pause_window_y + 10)
+
+        button_gap = 10
+        button_x = pause_window_x + 50
+        button_y = pause_window_y + 53
+
+        self.button.draw_button(self.window, "Continue", button_x, button_y, self.continue_game)
+        self.button.draw_button(self.window, "Play Again", button_x, button_y + self.button.button_height + button_gap,
+                                self.play_again)
+        self.button.draw_button(self.window, "Quit", button_x, button_y + 2 * (self.button.button_height + button_gap),
+                                self.quit_game)
+
+    def handle_pause_window_events(self):
+        """Handle events in the pause window."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return "quit"
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if self.button.button_clicked(mouse_pos[0], mouse_pos[1], button_x, button_y, self.button.button_width,
+                                              self.button.button_height):
+                    return "continue"
+                elif self.button.button_clicked(mouse_pos[0], mouse_pos[1], button_x,
+                                                button_y + self.button.button_height + button_gap,
+                                                self.button.button_width, self.button.button_height):
+                    return "play_again"
+                elif self.button.button_clicked(mouse_pos[0], mouse_pos[1], button_x,
+                                                button_y + 2 * (self.button.button_height + button_gap),
+                                                self.button.button_width, self.button.button_height):
+                    return "quit"
+
+    def pause_window(self):
+        """Display window when Pause is clicked on main window
+            Allows user to choose 3 options: Continue, Play Again, Quit
+            Draws buttons and text for this
+
+        Returns:
+            string: chosen option
+        """
+        self.display_pause_window()
+
+        while True:
+            result = self.handle_pause_window_events()
+            if result:
+                return result
+
+            pygame.display.update()
+            self.clock.tick(self.fps)
             
     def play_again():
         pass
