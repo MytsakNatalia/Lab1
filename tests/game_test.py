@@ -1,5 +1,6 @@
 import pygame
 import pytest
+from unittest.mock import MagicMock
 from main import Game
 
 
@@ -21,6 +22,7 @@ def game_instance(screen_width, screen_height, screen):
 def screen(screen_width, screen_height):
     pygame.init()
     return pygame.display.set_mode((screen_width, screen_height))
+
 def test_init(game_instance, screen_width, screen_height):
     assert game_instance.window != None
     assert game_instance.height == screen_width
@@ -100,6 +102,30 @@ def test_pause_window_quit(game_instance, mocker):
 
 
 
-def test_run(game_instance):
-    
-    pass
+def test_run_game(mocker, screen, screen_height, screen_width):
+        mocker.patch.object(pygame, 'event')
+        pygame.event.get.side_effect = [
+        [],  # First call returns an empty list
+        [MagicMock(type=pygame.QUIT)],  # Second call returns a QUIT event
+        ]
+
+        # Create a mocked instance of the Game class
+        game_instance = Game(screen, screen_height, screen_width, "easy")
+
+        # Mock other object to simulate game
+        mocker.patch.object(game_instance, 'ball')
+        mocker.patch.object(game_instance, 'paddle')
+        mocker.patch.object(game_instance, 'wall')
+        mocker.patch.object(game_instance, 'button')
+        mocker.patch.object(game_instance, 'draw_text')
+
+        # Call the run method
+        game_instance.run()
+
+        # Assert that relevant methods are called to draw game components
+        game_instance.ball.draw.assert_called()
+
+        game_instance.paddle.move.assert_called()
+        game_instance.paddle.draw.assert_called()
+        game_instance.wall.draw_wall.assert_called()
+        game_instance.button.draw_button.assert_called()
