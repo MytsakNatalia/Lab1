@@ -97,7 +97,7 @@ class Ball:
             self.game_over = -1
 
         # look for collission with paddle
-        if self.rect.colliderect(paddle.rectangle):
+        if paddle is not None and self.rect.colliderect(paddle.rectangle):
             # check if colliding from the top
             if abs(self.rect.bottom - paddle.rectangle.top) < collision_thresh and self.speed_y > 0:
                 self.speed_y *= -1
