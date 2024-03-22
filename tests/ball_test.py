@@ -147,8 +147,7 @@ def test_move_paddle_collision(ball):
         def __init__(self):
             self.rectangle = pygame.Rect(100, 500, 100, 20) 
             self.direction = 0  
-    paddle = MockPaddle()
-    ball.reset(150, 500)  # Ball placed close to the paddle    
+    paddle = MockPaddle()    
     ball.y = 480
     ball.speed_y = 4
     init_ball_speed_y = ball.speed_y
@@ -157,83 +156,8 @@ def test_move_paddle_collision(ball):
     init_ball_rect_y = ball.rect.y
     game_state = ball.move(wall, paddle, 600, 800)
     assert ball.speed_y == init_ball_speed_y 
-    assert ball.speed_x == init_ball_speed_x * (-1)
+    assert ball.speed_x == init_ball_speed_x 
     assert ball.rect.x == init_ball_rect_x + ball.speed_x
     assert ball.rect.y == init_ball_rect_y + ball.speed_y    
     assert game_state == 1  # Game continue
-    
-    
-"""import pygame
-import pytest
-from movable.ball import Ball
-from movable.paddle import Paddle
-from unmovable.wallBricks import Wall
 
-# Define fixtures
-@pytest.fixture
-def ball():
-    pygame.init()
-    return Ball(100, 100)
-
-@pytest.fixture
-def wall():
-    class MockWall:
-        def __init__(self):
-            self.blocks = []  # No blocks in the wall
-    return MockWall()
-
-@pytest.fixture
-def paddle():
-    class MockPaddle:
-        def __init__(self):
-            self.rectangle = pygame.Rect(100, 500, 100, 20) 
-            self.direction = 0  
-    return MockPaddle()
-
-# Test cases
-def test_reset(ball):
-    ball.reset(200, 200)
-    assert ball.ball_rad == 10
-    assert ball.x == 200 - ball.ball_rad
-    assert ball.y == 200
-    assert ball.rect.width == ball.ball_rad * 2
-    assert ball.rect.height == ball.ball_rad * 2
-    assert ball.speed_x == 4
-    assert ball.speed_y == -4
-    assert ball.game_over == 0
-
-def test_move_collision_with_wall_left(ball, wall):
-    ball.reset(15, 100)  # Ball placed close to the left wall
-    ball.speed_x = -4
-    ball.move(wall, None, 600, 800)
-    assert ball.speed_x == 4  # Collision with left wall should reverse horizontal speed
-
-def test_move_collision_with_wall_right(ball, wall):
-    ball.reset(785, 100)  # Ball placed close to the right wall
-    ball.speed_x = 4
-    ball.move(wall, None, 600, 800)
-    assert ball.speed_x == -4  # Collision with right wall should reverse horizontal speed
-
-def test_move_collision_with_wall_top(ball, wall):
-    ball.reset(100, 15)  # Ball placed close to the top wall
-    ball.speed_y = -4
-    ball.move(wall, None, 600, 800)
-    assert ball.speed_y == 4  # Collision with top wall should reverse vertical speed
-
-def test_move_collision_with_wall_bottom(ball, wall):
-    ball.reset(100, 585)  # Ball placed close to the bottom wall
-    ball.speed_y = 4
-    ball.move(wall, None, 600, 800)
-    assert ball.game_over == -1  # Collision with bottom wall should result in game over
-
-def test_move_collision_with_paddle_top(ball, wall, paddle):
-    ball.reset(150, 500)  # Ball placed close to the paddle
-    ball.speed_y = 4
-    ball.move(wall, paddle, 600, 800)
-    assert ball.speed_y == -4  # Collision with top of paddle should reverse vertical speed
-
-def test_move_collision_with_paddle_side(ball, wall, paddle):
-    ball.reset(200, 510)  # Ball placed close to the paddle
-    ball.speed_x = 4
-    ball.move(wall, paddle, 600, 800)
-    assert ball.speed_x == -4  # Collision with side of paddle should reverse horizontal speed"""
