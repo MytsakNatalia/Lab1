@@ -38,7 +38,7 @@ jobs:
 
     - name: Lint with flake8 and create a report
       run: |
-        flake8 . --format=html --output-file=flake8_report.html --exit-zero
+       flake8 . --format=html --htmldir=flake8_report --exit-zero
 
     - name: Upload reports
       uses: actions/upload-artifact@v2
