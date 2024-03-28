@@ -32,7 +32,7 @@ class Ball:
         '''
         pygame.draw.circle(window, self.fill_color, (self.rect.x + self.ball_rad, self.rect.y + self.ball_rad),
                            self.ball_rad)
-        pygame.draw.circle(window, self.fill_color, (self.rect.x + self.ball_rad, self.rect.y + self.ball_rad),
+        pygame.draw.circle(window, self.outline_color, (self.rect.x + self.ball_rad, self.rect.y + self.ball_rad),
                            self.ball_rad, 3)
 
     def move(self, wall, paddle, screen_height, screen_width):
@@ -97,7 +97,7 @@ class Ball:
             self.game_over = -1
 
         # look for collission with paddle
-        if self.rect.colliderect(paddle.rectangle):
+        if paddle is not None and self.rect.colliderect(paddle.rectangle):
             # check if colliding from the top
             if abs(self.rect.bottom - paddle.rectangle.top) < collision_thresh and self.speed_y > 0:
                 self.speed_y *= -1
