@@ -2,6 +2,7 @@ import pygame
 import pytest
 from unittest.mock import MagicMock
 from main import Game
+from pytest_mock import mocker
 
 
 @pytest.fixture
