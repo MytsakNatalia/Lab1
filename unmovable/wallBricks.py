@@ -1,5 +1,4 @@
 import pygame
-from pygame.locals import Rect
 
 class Wall:
     def __init__(self, difficulty, screen_width, screen_height, bg, cols, rows):
