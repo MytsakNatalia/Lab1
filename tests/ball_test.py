@@ -11,8 +11,8 @@ def ball():
 
 def test_reset(ball):
     ball.reset(200, 200)
-    assert ball.ball_rad == 10
-    assert ball.x == 200 - ball.ball_rad
+    assert  ball.ball_rad == 10
+    assert ball.x == 190
     assert ball.y == 200
     assert ball.rect.width == ball.ball_rad * 2
     assert ball.rect.height == ball.ball_rad * 2

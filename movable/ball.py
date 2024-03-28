@@ -32,7 +32,7 @@ class Ball:
         '''
         pygame.draw.circle(window, self.fill_color, (self.rect.x + self.ball_rad, self.rect.y + self.ball_rad),
                            self.ball_rad)
-        pygame.draw.circle(window, self.fill_color, (self.rect.x + self.ball_rad, self.rect.y + self.ball_rad),
+        pygame.draw.circle(window, self.outline_color, (self.rect.x + self.ball_rad, self.rect.y + self.ball_rad),
                            self.ball_rad, 3)
 
     def move(self, wall, paddle, screen_height, screen_width):
